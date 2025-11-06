@@ -11,7 +11,7 @@ import { Castanyera } from '../../model/castanyeraInterface';
   templateUrl: './castanyera-cards.html',
   styleUrls: ['./castanyera-cards.css'],
 })
-
+ 
 export class CastanyeraCards {
   @Input() personaje?: Castanyera;
 }
