@@ -1,2 +1,9 @@
-<h2>Entrega Castanyera</h2>
+<h2>Entrega de Lucia Castanyera</h2>
 
+<h2 class="titulo">Personajes de disney</h2>
+<div class="card-container">
+  <app-castanyera-cards
+    *ngFor="let personaje of personajes"
+    [personaje]="personaje"
+  ></app-castanyera-cards>
+</div>

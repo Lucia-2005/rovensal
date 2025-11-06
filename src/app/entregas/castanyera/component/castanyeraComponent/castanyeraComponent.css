@@ -1,2 +1,13 @@
 /* Styles for CastanyeraComponent */
-h2 { color: #2a6f97; }
+h2 {
+  color: #972a73;
+}
+
+/* Container grid for cards */
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+  align-items: start;
+  padding: 8px 0;
+}
