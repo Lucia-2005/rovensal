@@ -2,14 +2,16 @@
 
 <h2 class="titulo">Personajes de disney</h2>
 
-<app-castanyera-autocompletar></app-castanyera-autocompletar>
+<!-- <app-castanyera-search-bar (search) = "onSearch($event)"></app-castanyera-search-bar> -->
 
 <br>
 <br>
 
 <div class="card-container">
-  <app-castanyera-cards
-    *ngFor="let personaje of personajes"
-    [personaje]="personaje"
-  ></app-castanyera-cards>
+  <!-- <div *ngFor="let char of filteredCharacters"> -->
+    <app-castanyera-cards
+      *ngFor="let personaje of personajes"
+      [personaje]="personaje"
+    ></app-castanyera-cards>
+  <!-- </div> -->
 </div>

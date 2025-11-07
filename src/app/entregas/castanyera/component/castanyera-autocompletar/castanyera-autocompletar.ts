@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Castanyera } from '../../model/castanyeraInterface';
@@ -12,6 +12,9 @@ import { CommonModule } from '@angular/common';
   styleUrl: './castanyera-autocompletar.css',
 })
 export class CastanyeraAutocompletar implements OnInit {
+  @Input() search: string = '';
+  @Output() onSelectedCharacter = new EventEmitter<Castanyera>();
+  
   personajes: Castanyera[] = [];
 
   constructor(private castanyeraService: Jsonplacecastanyera) {}
@@ -21,4 +24,9 @@ export class CastanyeraAutocompletar implements OnInit {
       .getAllCharacters()
       .subscribe((characters) => (this.personajes = characters));
   }
+
+  onSelect(character: Castanyera) {
+    this.onSelectedCharacter.emit(character);
+  }
 }
+

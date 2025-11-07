@@ -5,11 +5,11 @@ import { CommonModule } from '@angular/common';
 import { Jsonplacecastanyera } from '../../services/CastanyeraService';
 import { Castanyera } from '../../model/castanyeraInterface';
 import { CastanyeraCards } from '../castanyera-cards/castanyera-cards';
-import { CastanyeraAutocompletar } from '../castanyera-autocompletar/castanyera-autocompletar';
+import { CastanyeraSearchBar } from '../castanyera-search-bar/castanyera-search-bar';
 
 @Component({
   selector: 'app-castanyera',
-  imports: [CommonModule, MatCardModule, MatButtonModule, CastanyeraCards, CastanyeraAutocompletar],
+  imports: [ CommonModule, MatCardModule, MatButtonModule, CastanyeraCards, CastanyeraSearchBar ],
   templateUrl: './castanyeraComponent.html',
   styleUrls: ['./castanyeraComponent.css'],
   standalone: true,
@@ -17,6 +17,7 @@ import { CastanyeraAutocompletar } from '../castanyera-autocompletar/castanyera-
 
 export class CastanyeraComponent {
   personajes: Castanyera[] = [];
+  filteredCharacters: Castanyera[] = [];
 
   constructor(private jsonCastanyera: Jsonplacecastanyera) {}
 
@@ -29,5 +30,13 @@ export class CastanyeraComponent {
       this.personajes = characters;
       console.log(this.personajes);
     });
+  }
+
+  onSearch(text: string){
+    const term = text.toLowerCase().trim();
+
+    this.filteredCharacters = this.personajes.filter((char) =>
+      char.name.toLowerCase().includes(term)
+    );
   }
 }

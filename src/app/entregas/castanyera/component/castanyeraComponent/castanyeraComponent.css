@@ -8,6 +8,7 @@ h2 {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 16px;
-  align-items: start;
+  /* stretch items so they all match the row height */
+  align-items: stretch;
   padding: 8px 0;
 }
