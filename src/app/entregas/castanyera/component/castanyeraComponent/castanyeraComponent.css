@@ -3,6 +3,12 @@ h2 {
   color: #972a73;
 }
 
+body {
+  background-image: url('/public/castanyera/background.jpeg');
+  background-size: cover;
+  background-attachment: fixed;
+}
+
 /* Container grid for cards */
 .card-container {
   display: grid;

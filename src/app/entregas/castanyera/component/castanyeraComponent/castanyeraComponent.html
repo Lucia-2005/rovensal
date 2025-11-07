@@ -1,17 +1,17 @@
-<h2>Entrega de Lucia Castanyera</h2>
 
-<h2 class="titulo">Personajes de disney</h2>
+<body>
+  <h2>Entrega de Lucia Castanyera</h2>
 
-<!-- <app-castanyera-search-bar (search) = "onSearch($event)"></app-castanyera-search-bar> -->
+  <h2 class="titulo">Personajes de disney</h2>
 
-<br>
-<br>
+  <!-- <app-castanyera-search-bar (search) = "onSearch($event)"></app-castanyera-search-bar> -->
 
-<div class="card-container">
-  <!-- <div *ngFor="let char of filteredCharacters"> -->
-    <app-castanyera-cards
-      *ngFor="let personaje of personajes"
-      [personaje]="personaje"
-    ></app-castanyera-cards>
-  <!-- </div> -->
-</div>
+  <div class="card-container">
+    <!-- <div *ngFor="let char of filteredCharacters"> -->
+      <app-castanyera-cards
+        *ngFor="let personaje of personajes"
+        [personaje]="personaje"
+      ></app-castanyera-cards>
+    <!-- </div> -->
+  </div>
+</body>
