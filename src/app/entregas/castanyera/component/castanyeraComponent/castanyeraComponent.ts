@@ -5,19 +5,28 @@ import { CommonModule } from '@angular/common';
 import { Jsonplacecastanyera } from '../../services/CastanyeraService';
 import { Castanyera } from '../../model/castanyeraInterface';
 import { CastanyeraCards } from '../castanyera-cards/castanyera-cards';
-import { CastanyeraSearchBar } from '../castanyera-search-bar/castanyera-search-bar';
+import { CastanyeraSearchBarName } from '../castanyera-search-bar-name/castanyera-search-bar-name';
+import { CastanyeraSearchBarPeli } from '../castanyera-search-bar-peli/castanyera-search-bar-peli';
 
 @Component({
   selector: 'app-castanyera',
-  imports: [ CommonModule, MatCardModule, MatButtonModule, CastanyeraCards, CastanyeraSearchBar ],
+  imports: [
+    CommonModule,
+    MatCardModule,
+    MatButtonModule,
+    CastanyeraCards,
+    CastanyeraSearchBarName,
+    CastanyeraSearchBarPeli,
+  ],
   templateUrl: './castanyeraComponent.html',
   styleUrls: ['./castanyeraComponent.css'],
   standalone: true,
 })
-
 export class CastanyeraComponent {
   personajes: Castanyera[] = [];
   filteredCharacters: Castanyera[] = [];
+  searchByName: string = '';
+  searchByMedia: string = '';
 
   constructor(private jsonCastanyera: Jsonplacecastanyera) {}
 
@@ -28,15 +37,30 @@ export class CastanyeraComponent {
   getCharacters() {
     this.jsonCastanyera.getAllCharacters().subscribe((characters: Castanyera[]) => {
       this.personajes = characters;
-      console.log(this.personajes);
+      this.applyFilters();
     });
   }
 
-  onSearch(text: string){
-    const term = text.toLowerCase().trim();
+  onSearchName(text: string) {
+    this.searchByName = text.toLowerCase().trim();
+    this.applyFilters();
+  }
 
-    this.filteredCharacters = this.personajes.filter((char) =>
-      char.name.toLowerCase().includes(term)
-    );
+  onSearchMedia(text: string) {
+    this.searchByMedia = text.toLowerCase().trim();
+    this.applyFilters();
+  }
+
+  private applyFilters() {
+    this.filteredCharacters = this.personajes.filter((char) => {
+      const matchesName = !this.searchByName || char.name.toLowerCase().includes(this.searchByName);
+
+      const matchesMedia =
+        !this.searchByMedia ||
+        char.films.some((film) => film.toLowerCase().includes(this.searchByMedia)) ||
+        char.tvShows.some((show) => show.toLowerCase().includes(this.searchByMedia));
+
+      return matchesName && matchesMedia;
+    });
   }
 }

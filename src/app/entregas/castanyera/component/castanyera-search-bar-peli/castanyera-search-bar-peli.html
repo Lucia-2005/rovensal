@@ -1,0 +1,9 @@
+<mat-form-field appearance="outline" class="w-100">
+  <mat-label>Buscar por película o serie</mat-label>
+  <input
+    matInput
+    [(ngModel)]="searchText"
+    (input)="onSearch()"
+    placeholder="Ej: Toy Story, Mickey Mouse Clubhouse"
+  />
+</mat-form-field>

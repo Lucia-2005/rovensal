@@ -1,5 +1,9 @@
 <mat-autocomplete #auto="matAutocomplete">
-  @for (personaje of personajes; track personaje.name) {
-  <mat-option [value]="personaje">{{ personaje.name }}</mat-option>
-  }
+  <mat-option
+    *ngFor="let personaje of filteredPersonajes()"
+    [value]="personaje"
+    (click)="onSelect(personaje)"
+  >
+    {{ personaje.name }}
+  </mat-option>
 </mat-autocomplete>

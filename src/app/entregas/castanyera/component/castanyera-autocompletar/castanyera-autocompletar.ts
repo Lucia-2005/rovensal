@@ -14,7 +14,7 @@ import { CommonModule } from '@angular/common';
 export class CastanyeraAutocompletar implements OnInit {
   @Input() search: string = '';
   @Output() onSelectedCharacter = new EventEmitter<Castanyera>();
-  
+
   personajes: Castanyera[] = [];
 
   constructor(private castanyeraService: Jsonplacecastanyera) {}
@@ -28,5 +28,10 @@ export class CastanyeraAutocompletar implements OnInit {
   onSelect(character: Castanyera) {
     this.onSelectedCharacter.emit(character);
   }
-}
 
+  filteredPersonajes(): Castanyera[] {
+    const q = (this.search || '').trim().toLowerCase();
+    if (!q) return this.personajes;
+    return this.personajes.filter((p) => (p.name || '').toLowerCase().includes(q));
+  }
+}
