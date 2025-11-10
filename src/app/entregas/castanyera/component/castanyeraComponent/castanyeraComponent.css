@@ -1,12 +1,18 @@
 /* Styles for CastanyeraComponent */
 h2 {
   color: #972a73;
+  text-align: center;
+  font-family:Georgia, 'Times New Roman', Times, serif;
+  font-size: 2.5rem;
+  margin-bottom: 50px;;
 }
 
-body {
-  background-image: url('/public/castanyera/background.jpeg');
-  background-size: cover;
-  background-attachment: fixed;
+body{
+  background-color: #dacdd3;
+  height: 100%;
+  width: 100%;
+  padding: 50px;
+  border-radius: 15px;
 }
 
 /* Container grid for cards */

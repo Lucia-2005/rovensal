@@ -7,6 +7,7 @@ import { Castanyera } from '../../model/castanyeraInterface';
 import { CastanyeraCards } from '../castanyera-cards/castanyera-cards';
 import { CastanyeraSearchBarName } from '../castanyera-search-bar-name/castanyera-search-bar-name';
 import { CastanyeraSearchBarPeli } from '../castanyera-search-bar-peli/castanyera-search-bar-peli';
+import { CastanyeraPaginator } from '../castanyera-paginator/castanyera-paginator';
 
 @Component({
   selector: 'app-castanyera',
@@ -17,6 +18,7 @@ import { CastanyeraSearchBarPeli } from '../castanyera-search-bar-peli/castanyer
     CastanyeraCards,
     CastanyeraSearchBarName,
     CastanyeraSearchBarPeli,
+    CastanyeraPaginator,
   ],
   templateUrl: './castanyeraComponent.html',
   styleUrls: ['./castanyeraComponent.css'],
@@ -27,6 +29,12 @@ export class CastanyeraComponent {
   filteredCharacters: Castanyera[] = [];
   searchByName: string = '';
   searchByMedia: string = '';
+  nameFiltered: Castanyera[] = [];
+  mediaFiltered: Castanyera[] = [];
+
+  // Parámetros de paginación
+  pageSize = 10;
+  currentPage = 0;
 
   constructor(private jsonCastanyera: Jsonplacecastanyera) {}
 
@@ -43,11 +51,21 @@ export class CastanyeraComponent {
 
   onSearchName(text: string) {
     this.searchByName = text.toLowerCase().trim();
+    // compute name-only matches for the message and then apply combined filters
+    this.nameFiltered = this.personajes.filter((char) =>
+      char.name.toLowerCase().includes(this.searchByName)
+    );
     this.applyFilters();
   }
 
   onSearchMedia(text: string) {
     this.searchByMedia = text.toLowerCase().trim();
+    // compute media-only matches for the message and then apply combined filters
+    this.mediaFiltered = this.personajes.filter(
+      (char) =>
+        char.films.some((film) => film.toLowerCase().includes(this.searchByMedia)) ||
+        char.tvShows.some((show) => show.toLowerCase().includes(this.searchByMedia))
+    );
     this.applyFilters();
   }
 
@@ -62,5 +80,24 @@ export class CastanyeraComponent {
 
       return matchesName && matchesMedia;
     });
+  }
+
+  get showNoResults(): boolean {
+    const noNameMatches = !!this.searchByName && this.nameFiltered.length === 0;
+    const noMediaMatches = !!this.searchByMedia && this.mediaFiltered.length === 0;
+    return noNameMatches || noMediaMatches;
+  }
+
+  onPageChange(event: any) {
+    this.currentPage = event.pageIndex;
+    this.pageSize = event.pageSize;
+  }
+
+  get pagedCharacters(): Castanyera[] {
+    const startIndex = this.currentPage * this.pageSize;
+    const charactersToShow = this.filteredCharacters.length
+      ? this.filteredCharacters
+      : this.personajes;
+    return charactersToShow.slice(startIndex, startIndex + this.pageSize);
   }
 }

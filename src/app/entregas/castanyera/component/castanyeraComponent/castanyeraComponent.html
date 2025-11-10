@@ -1,19 +1,29 @@
 <body>
-  <h2>Entrega de Lucia Castanyera</h2>
-
-  <h2 class="titulo">Personajes de disney</h2>
+  <h2 class="titulo">PERSONAJES DE DISNEY</h2>
 
   <div class="search-container">
-    <app-castanyera-search-bar-name (search)="onSearchName($event)"></app-castanyera-search-bar-name>
+    <app-castanyera-search-bar-name
+      (search)="onSearchName($event)"
+      [hasResults]="nameFiltered.length > 0"
+    ></app-castanyera-search-bar-name>
     <app-castanyera-search-bar-peli
       (search)="onSearchMedia($event)"
+      [hasResults]="mediaFiltered.length > 0"
     ></app-castanyera-search-bar-peli>
   </div>
 
-  <div class="card-container">
+  <div class="card-container" *ngIf="!showNoResults">
     <app-castanyera-cards
-      *ngFor="let personaje of filteredCharacters.length ? filteredCharacters : personajes"
+      *ngFor="let personaje of pagedCharacters"
       [personaje]="personaje"
     ></app-castanyera-cards>
+  </div>
+
+  <div class="paginator-container" *ngIf="!showNoResults">
+    <app-castanyera-paginator
+      [length]="(filteredCharacters.length ? filteredCharacters : personajes).length"
+      [pageSize]="pageSize"
+      (page)="onPageChange($event)"
+    ></app-castanyera-paginator>
   </div>
 </body>

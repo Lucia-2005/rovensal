@@ -5,6 +5,7 @@
   width: 250px;
   display: flex;
   flex-direction: column;
+  background-color: rgb(234, 223, 227);
 }
 
 .card img[mat-card-image] {
@@ -33,4 +34,6 @@ mat-card-header {
   height: 80px;
   align-items: center;
   text-align: center;
+  color:rgb(162, 95, 129); 
 }
+

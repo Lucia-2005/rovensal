@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, Input } from '@angular/core';
 import { MatFormField } from '@angular/material/form-field';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -14,6 +14,8 @@ import { Castanyera } from '../../model/castanyeraInterface';
 })
 export class CastanyeraSearchBarPeli {
   searchText: string = '';
+
+  @Input() hasResults: boolean = true;
 
   @Output() search = new EventEmitter<string>();
 

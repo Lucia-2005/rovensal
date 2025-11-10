@@ -3,7 +3,7 @@
   <input matInput [(ngModel)]="searchText" (input)="onSearch()" />
 </mat-form-field>
 
-<app-castanyera-autocompletar
-  [search]="searchText"
-  (onSelectedCharacter)="onOptionSelected($event)"
-></app-castanyera-autocompletar>
+<!-- mensaje cuando no hay resultados para la búsqueda por nombre -->
+<div *ngIf="searchText && !hasResults" class="no-results">
+  No se han encontrado personajes con ese nombre.
+</div>
